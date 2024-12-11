@@ -1,18 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/layout";
+import { useAuthentication } from "@/hooks/useAuthentication";
 
 function Hello() {
-  const rederictToAuthProvider = () => {
-    console.log("Redirecting to auth provider");
-
-    window.location.href =
-      "http://keycloak:8080/realms/artemis/protocol/openid-connect/auth?response_type=code&client_id=artemis&redirect_uri=http://localhost:8000/api/v1/login&state=1234&scope=openid";
-  };
+  const [initiateLogin, _, __] = useAuthentication();
 
   return (
     <>
       <Layout>
-        <Button onClick={rederictToAuthProvider}>Hello world</Button>
+        <Button onClick={initiateLogin}>Hello world</Button>
       </Layout>
     </>
   );

@@ -1,27 +1,33 @@
 import { Layout } from "@/components/layout/layout";
 
 import { Button } from "@/components/ui/button";
+import { useAuthentication } from "@/hooks/useAuthentication";
 
 function Dashboard() {
+  const [_, handleUnauthenticatedAPICall, __] = useAuthentication();
 
   const getUsers = () => {
-
-    console.log(window.location.origin)
-
     fetch(`${window.location.origin}/api/v1/user`, {
-    // fetch(`http://localhost:8000/api/v1/user`, {
-      // credentials: 'include',
       headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'origin': 'http://localhost:5173',
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        origin: "http://localhost:5173",
       },
-
     })
-  }
-
-
-
+      .then((response) => {
+        console.log(response);
+        if (!response.ok) {
+          handleUnauthenticatedAPICall();
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
 
   return (
     <>
