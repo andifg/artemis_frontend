@@ -3,7 +3,9 @@ import { Layout } from "@/components/layout/layout";
 import { useAuthentication } from "@/hooks/useAuthentication";
 
 function Hello() {
-  const { initiateLogin } = useAuthentication();
+  const { initiateLogin, checkIfUserCookiesExist } = useAuthentication();
+
+  checkIfUserCookiesExist()
 
   return (
     <>

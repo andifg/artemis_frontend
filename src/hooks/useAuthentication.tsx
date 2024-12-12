@@ -15,6 +15,7 @@ interface ExtendedJwtPayload extends JwtPayload {
 interface useAuthenticationReturn {
   initiateLogin: () => void;
   logout: () => void;
+  checkIfUserCookiesExist: () => void;
 }
 
 function useAuthentication(): useAuthenticationReturn {
@@ -40,6 +41,17 @@ function useAuthentication(): useAuthenticationReturn {
     }
   };
 
+  const checkIfUserCookiesExist = () => {
+    if (id_token) {
+      console.log("Found existing tokens, redirecting to dashboard");
+      window.location.href = "/dashboard";
+
+    } else {
+      console.log("Not logged in");
+    }
+  }
+
+
   if (id_token) {
     const decodedToken = jwtDecode<ExtendedJwtPayload>(id_token);
     user = {
@@ -54,7 +66,7 @@ function useAuthentication(): useAuthenticationReturn {
     logout();
   }
 
-  return { initiateLogin, logout };
+  return { initiateLogin, checkIfUserCookiesExist, logout };
 }
 
 export { useAuthentication };
