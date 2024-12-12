@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useAuthentication } from "@/hooks/useAuthentication";
 
 function Dashboard() {
-  const [_, handleUnauthenticatedAPICall, __] = useAuthentication();
+  const { logout } = useAuthentication();
 
   const getUsers = () => {
     fetch(`${window.location.origin}/api/v1/user`, {
@@ -17,7 +17,7 @@ function Dashboard() {
       .then((response) => {
         console.log(response);
         if (!response.ok) {
-          handleUnauthenticatedAPICall();
+          logout();
         }
         return response.json();
       })
