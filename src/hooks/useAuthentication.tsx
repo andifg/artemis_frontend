@@ -45,12 +45,10 @@ function useAuthentication(): useAuthenticationReturn {
     if (id_token) {
       console.log("Found existing tokens, redirecting to dashboard");
       window.location.href = "/dashboard";
-
     } else {
       console.log("Not logged in");
     }
-  }
-
+  };
 
   if (id_token) {
     const decodedToken = jwtDecode<ExtendedJwtPayload>(id_token);

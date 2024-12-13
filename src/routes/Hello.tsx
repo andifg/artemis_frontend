@@ -5,7 +5,7 @@ import { useAuthentication } from "@/hooks/useAuthentication";
 function Hello() {
   const { initiateLogin, checkIfUserCookiesExist } = useAuthentication();
 
-  checkIfUserCookiesExist()
+  checkIfUserCookiesExist();
 
   return (
     <>

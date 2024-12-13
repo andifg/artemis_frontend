@@ -3,6 +3,8 @@ import { Layout } from "@/components/layout/layout";
 import { Button } from "@/components/ui/button";
 import { useAuthentication } from "@/hooks/useAuthentication";
 
+import { BottomNavigator } from "@/components/bottomNavigator/bottomNavigator";
+
 function Dashboard() {
   const { logout } = useAuthentication();
 
@@ -34,6 +36,7 @@ function Dashboard() {
       <Layout>
         <h1>Hello FROM Dashboard</h1>
         <Button onClick={getUsers}>Send User Post</Button>
+        <BottomNavigator />
       </Layout>
     </>
   );
