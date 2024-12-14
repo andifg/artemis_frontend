@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useAuthentication } from "@/hooks/useAuthentication";
 
 import { BottomNavigator } from "@/components/bottomNavigator/bottomNavigator";
+import { LogoHeader } from "@/components/logoHeader/LogoHeader";
 
 function Dashboard() {
   const { logout } = useAuthentication();
@@ -34,8 +35,19 @@ function Dashboard() {
   return (
     <>
       <Layout>
-        <h1>Hello FROM Dashboard</h1>
-        <Button onClick={getUsers}>Send User Post</Button>
+        <LogoHeader />
+        <div
+          className="dashboard-main"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+          }}
+        >
+          <Button onClick={getUsers}>Send User Post</Button>
+        </div>
         <BottomNavigator />
       </Layout>
     </>
