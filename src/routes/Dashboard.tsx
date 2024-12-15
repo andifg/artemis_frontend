@@ -5,6 +5,7 @@ import { useAuthentication } from "@/hooks/useAuthentication";
 
 import { BottomNavigator } from "@/components/bottomNavigator/bottomNavigator";
 import { LogoHeader } from "@/components/logoHeader/LogoHeader";
+import { VeggieStreak } from "@/components/veggiStreak/VeggieStreak";
 
 function Dashboard() {
   const { logout } = useAuthentication();
@@ -44,8 +45,11 @@ function Dashboard() {
             justifyContent: "center",
             alignItems: "center",
             height: "100vh",
+            width: "100%",
+            marginBottom: "100px",
           }}
         >
+          <VeggieStreak />
           <Button onClick={getUsers}>Send User Post</Button>
         </div>
         <BottomNavigator />
