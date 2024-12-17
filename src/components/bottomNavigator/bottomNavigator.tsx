@@ -1,9 +1,17 @@
 import "./BottomNavigator.scss";
 import TestSvg from "../../assets/meat.svg";
+import { AddMealSheet } from "@/components/addMeal/AddMealSheet";
+import { useState } from "react";
 
 function BottomNavigator() {
-  const addMeat = () => {
-    console.log("Add meat");
+  const [open, setOpen] = useState(false);
+
+  const closeModal = () => {
+    setOpen(false);
+  };
+
+  const openModal = () => {
+    setOpen(true);
   };
 
   return (
@@ -13,10 +21,12 @@ function BottomNavigator() {
         <img
           src={TestSvg}
           alt="test"
-          onClick={addMeat}
+          onClick={openModal}
           style={{ width: "50px" }}
         />
       </div>
+      {/* <AddMealDrawer open={open} onClose={closeModal} /> */}
+      <AddMealSheet open={open} onClose={closeModal} />
     </div>
   );
 }
