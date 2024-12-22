@@ -120,3 +120,14 @@
     @apply bg-background text-foreground;
   }
 }
+
+@media screen and (min-width: 1000px) {
+  #root {
+    padding-left: 30%;
+    padding-right: 30%;
+  }
+  .bottom-navigator {
+    padding-left: 20%;
+    padding-right: 20%;
+  }
+}
