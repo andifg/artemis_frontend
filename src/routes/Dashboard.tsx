@@ -7,6 +7,7 @@ import { BottomNavigator } from "@/components/bottomNavigator/bottomNavigator";
 import { LogoHeader } from "@/components/logoHeader/LogoHeader";
 import { VeggieStreak } from "@/components/veggiStreak/VeggieStreak";
 import { DailyOverview } from "@/components/dailyOverview/dailyOverview";
+import { AverageMeatPortions } from "@/components/averageMeatPortions/averageMeatPortions";
 
 function Dashboard() {
   const { logout } = useAuthentication();
@@ -52,6 +53,7 @@ function Dashboard() {
         >
           <DailyOverview />
           <VeggieStreak />
+          <AverageMeatPortions />
           <Button onClick={getUsers}>Send User Post</Button>
         </div>
         <BottomNavigator />
