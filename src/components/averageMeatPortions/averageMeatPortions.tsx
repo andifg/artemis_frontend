@@ -17,7 +17,7 @@ function AverageMeatPortions() {
           <div className="average-meat-portions-header-title">
             <TrendingUp />
             <div className="average-meat-portions-header-title-title">
-              Average Meat Portions
+              Average Daily Meat Portions
             </div>
           </div>
 
