@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/sheet";
 import { AddMealForm } from "./AddMealForm";
 
-type AddMealSheetProps = {
+export type AddMealSheetProps = {
   open: boolean;
   onClose: () => void;
 };
@@ -20,7 +20,7 @@ function AddMealSheet({ open, onClose }: AddMealSheetProps) {
         <SheetTitle className="text-3xl">Add Meat Serving</SheetTitle>
         <SheetDescription>Hopefully it was tasty!</SheetDescription>
         <div className="add-meal-sheet-content">
-          <AddMealForm />
+          <AddMealForm onClose={onClose} />
         </div>
       </SheetContent>
     </Sheet>

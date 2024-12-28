@@ -33,21 +33,18 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-const formSchema = z.object({
-  date: z.date(),
-  portionSize: z.enum(["small", "medium", "large"]),
-  notes: z.string().max(20).optional(),
-});
+import { useAddMealForm, formSchema } from "./useAddMealForm";
 
-function AddMealForm() {
+type AddMealFormProps = {
+  onClose: () => void;
+};
+
+function AddMealForm({ onClose }: AddMealFormProps) {
+  const { onSubmit } = useAddMealForm({ onClose });
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
-
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("submit");
-    console.log(values);
-  }
 
   return (
     <>
