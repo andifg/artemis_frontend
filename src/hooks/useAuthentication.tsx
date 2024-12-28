@@ -16,6 +16,7 @@ interface useAuthenticationReturn {
   initiateLogin: () => void;
   logout: () => void;
   checkIfUserCookiesExist: () => void;
+  getUser: () => User;
 }
 
 function useAuthentication(): useAuthenticationReturn {
@@ -64,7 +65,11 @@ function useAuthentication(): useAuthenticationReturn {
     logout();
   }
 
-  return { initiateLogin, checkIfUserCookiesExist, logout };
+  const getUser = (): User => {
+    return user;
+  };
+
+  return { initiateLogin, checkIfUserCookiesExist, logout, getUser };
 }
 
 export { useAuthentication };
