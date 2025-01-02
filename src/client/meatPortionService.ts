@@ -49,6 +49,23 @@ class MeatPortionService {
         return data;
       });
   }
+
+  public static GetVeggieStreak(userID: string): Promise<APIResponse<number>> {
+    const url = `${API.baseURL}/api/v1/user/${userID}/streak`;
+
+    return fetch(url)
+      .then((response) => {
+        if (response.status !== 200) {
+          throw new Error(
+            `Failed to get meat portions with error: ${response.statusText}`,
+          );
+        }
+        return response.json();
+      })
+      .then((data) => {
+        return data;
+      });
+  }
 }
 
 export { MeatPortionService };

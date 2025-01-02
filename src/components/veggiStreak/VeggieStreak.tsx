@@ -1,8 +1,11 @@
 import "./VeggieStreak.scss";
 import { DashboardBox } from "../dashboardBox/DashboardBox";
 import FireLogo from "../../assets/fire.svg";
+import { useVeggieStreak } from "./useVeggieStreak";
 
 function VeggieStreak() {
+  const { streak } = useVeggieStreak();
+
   return (
     <DashboardBox>
       <div className="veggie-streak">
@@ -10,7 +13,7 @@ function VeggieStreak() {
           <img src={FireLogo} alt="fire" />
         </div>
         <div className="veggie-streak-text text-primary">
-          0 Days Veggie Streak
+          {streak} Days Veggie Streak
         </div>
       </div>
     </DashboardBox>
