@@ -1,4 +1,4 @@
-import { BodyCreateMeatPortion, MeatPortion } from "./types";
+import { APIResponse, BodyCreateMeatPortion, MeatPortion } from "./types";
 import { API } from "./config";
 
 class MeatPortionService {
@@ -22,6 +22,25 @@ class MeatPortionService {
         if (response.status !== 201) {
           throw new Error(
             `Failed to create meat portion with error: ${response.statusText}`,
+          );
+        }
+        return response.json();
+      })
+      .then((data) => {
+        return data;
+      });
+  }
+
+  public static GetMeatPortions(
+    userID: string,
+  ): Promise<APIResponse<MeatPortion[]>> {
+    const url = `${API.baseURL}/api/v1/user/${userID}/meat-portions`;
+
+    return fetch(url)
+      .then((response) => {
+        if (response.status !== 200) {
+          throw new Error(
+            `Failed to get meat portions with error: ${response.statusText}`,
           );
         }
         return response.json();
