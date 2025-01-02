@@ -3,6 +3,7 @@ import { useClient } from "@/hooks/useClient";
 import { MeatPortionService } from "@/client/meatPortionService";
 import { useAuthentication } from "@/hooks/useAuthentication";
 import { MeatPortion } from "@/client/types";
+import { extractDate } from "@/utils/extractDate";
 
 export type DailyOverview = {
   [key: string]: MeatPortion | undefined;
@@ -21,7 +22,7 @@ function useDailyOverview() {
       date.setDate(date.getDate() - i);
 
       // Convert the date to a string
-      const dateString = date.toISOString().split("T")[0];
+      const dateString = extractDate(date);
 
       // Add the date to the object
       meatPortions[dateString] = undefined;
@@ -38,9 +39,12 @@ function useDailyOverview() {
       const updatedMeatPortions = { ...meatPortions };
 
       newMeatPortions.forEach((newMeatPortion) => {
-        updatedMeatPortions[
-          new Date(newMeatPortion.date).toISOString().split("T")[0]
-        ] = newMeatPortion;
+        console.log(
+          "Will swap meat portion",
+          extractDate(new Date(newMeatPortion.date)),
+        );
+        updatedMeatPortions[extractDate(new Date(newMeatPortion.date))] =
+          newMeatPortion;
       });
 
       return updatedMeatPortions;
