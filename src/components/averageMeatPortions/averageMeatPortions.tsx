@@ -24,6 +24,7 @@ function AverageMeatPortions() {
           <div className="average-meat-portions-header-selector">
             {timeframeOptions.map((item) => (
               <div
+                key={item}
                 className={`average-meat-portions-header-selector-item ${item == selected ? "average-meat-portions-header-selector-item-selected" : ""}`}
                 onClick={() => setSelected(item as AverageMeatPortionsTime)}
               >

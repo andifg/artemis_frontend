@@ -51,10 +51,10 @@ function DailyOverview() {
               width: `${(100 / 7) * Object.keys(dailyOverview).length}%`,
             }}
           >
-            {transformHashMaptoArray(dailyOverview).map((day, index) => {
+            {transformHashMaptoArray(dailyOverview).map((day, _) => {
               return (
                 <Day
-                  key={index}
+                  key={day.date + "day"}
                   date={new Date(day.date)}
                   meatConsumed={day.size !== undefined ? true : false}
                   select={changeSelectedDate}

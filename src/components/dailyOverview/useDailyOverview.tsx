@@ -39,10 +39,6 @@ function useDailyOverview() {
       const updatedMeatPortions = { ...meatPortions };
 
       newMeatPortions.forEach((newMeatPortion) => {
-        console.log(
-          "Will swap meat portion",
-          extractDate(new Date(newMeatPortion.date)),
-        );
         updatedMeatPortions[extractDate(new Date(newMeatPortion.date))] =
           newMeatPortion;
       });
