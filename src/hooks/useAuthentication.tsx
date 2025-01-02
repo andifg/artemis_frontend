@@ -23,7 +23,7 @@ function useAuthentication(): useAuthenticationReturn {
   let user: User;
 
   const id_token = getCookie("id_token");
-  console.log("id_token", id_token);
+  // console.log("id_token", id_token);
 
   const initiateLogin = () => {
     console.log("Redirecting to auth provider");
@@ -59,9 +59,9 @@ function useAuthentication(): useAuthenticationReturn {
       id: decodedToken.sub || "",
     };
 
-    console.log("user", user);
+    // console.log("user", user);
   } else {
-    console.log("no id_token");
+    // console.log("no id_token");
     logout();
   }
 
