@@ -18,3 +18,11 @@ export type APIResponse<T> = {
   responseMessage: string;
   data: T;
 };
+
+export type Timeframe = "week" | "month" | "6month";
+
+export type AverageMeatPortions = {
+  Timeframe: Timeframe;
+  Value: number;
+  ChangeRate: number;
+};

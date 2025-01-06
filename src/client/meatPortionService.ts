@@ -1,4 +1,10 @@
-import { APIResponse, BodyCreateMeatPortion, MeatPortion } from "./types";
+import {
+  APIResponse,
+  AverageMeatPortions,
+  BodyCreateMeatPortion,
+  MeatPortion,
+  Timeframe,
+} from "./types";
 import { API } from "./config";
 
 class MeatPortionService {
@@ -58,6 +64,26 @@ class MeatPortionService {
         if (response.status !== 200) {
           throw new Error(
             `Failed to get meat portions with error: ${response.statusText}`,
+          );
+        }
+        return response.json();
+      })
+      .then((data) => {
+        return data;
+      });
+  }
+
+  public static GetAverageMeatPortions(
+    userID: string,
+    timeframe: Timeframe,
+  ): Promise<APIResponse<AverageMeatPortions>> {
+    const url = `${API.baseURL}/api/v1/user/${userID}/average?timeframe=${timeframe}`;
+
+    return fetch(url)
+      .then((response) => {
+        if (response.status !== 200) {
+          throw new Error(
+            `Failed to get average meat portions with error: ${response.statusText}`,
           );
         }
         return response.json();

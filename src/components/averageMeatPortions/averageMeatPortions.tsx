@@ -1,14 +1,32 @@
 import "./averageMeatPortions.scss";
-import { useState } from "react";
+import React from "react";
 import { DashboardBox } from "../dashboardBox/DashboardBox";
 import { TrendingUp } from "lucide-react";
+import { useAverageMeatPortions } from "./useAverageMeatPortions";
+import { Timeframe } from "@/client/types";
 
-type AverageMeatPortionsTime = "W" | "M" | "6M";
+// type AverageMeatPortionsTime = "W" | "M" | "6M";
 
-function AverageMeatPortions() {
-  const [selected, setSelected] = useState<AverageMeatPortionsTime>("W");
+type AverageMeatPortionsProps = {
+  selected: Timeframe;
+  setSelected: React.Dispatch<React.SetStateAction<Timeframe>>;
+};
 
-  const timeframeOptions: AverageMeatPortionsTime[] = ["W", "M", "6M"];
+type TimeFrameMap = {
+  [key in Timeframe]: string;
+};
+
+function AverageMeatPortions({
+  selected,
+  setSelected,
+}: AverageMeatPortionsProps) {
+  const timeFrameMap: TimeFrameMap = {
+    week: "W",
+    month: "M",
+    "6month": "6M",
+  };
+
+  const { averageMeatPortions } = useAverageMeatPortions({ selected });
 
   return (
     <DashboardBox>
@@ -17,26 +35,32 @@ function AverageMeatPortions() {
           <div className="average-meat-portions-header-title">
             <TrendingUp />
             <div className="average-meat-portions-header-title-title">
-              Average Daily Meat Portions
+              Average Weekly Meat Portions
             </div>
           </div>
 
           <div className="average-meat-portions-header-selector">
-            {timeframeOptions.map((item) => (
+            {Object.entries(timeFrameMap).map(([key, value]) => (
               <div
-                key={item}
-                className={`average-meat-portions-header-selector-item ${item == selected ? "average-meat-portions-header-selector-item-selected" : ""}`}
-                onClick={() => setSelected(item as AverageMeatPortionsTime)}
+                key={key}
+                className={`average-meat-portions-header-selector-item ${key == selected ? "average-meat-portions-header-selector-item-selected" : ""}`}
+                onClick={() => setSelected(key as Timeframe)}
               >
-                {item}
+                {value}
               </div>
             ))}
           </div>
         </div>
 
         <div className="average-meat-portions-value-header">
-          <div className="average-meat-portions-value">2</div>
-          <div className="average-meat-portions-diff">-4%</div>
+          <div className="average-meat-portions-value">
+            {averageMeatPortions.Value}
+          </div>
+          <div
+            className={`average-meat-portions-diff ${averageMeatPortions.ChangeRate < 0 && "average-meat-portions-diff-negative"} ${averageMeatPortions.ChangeRate == 0 && "average-meat-portions-diff-zero"}`}
+          >
+            {averageMeatPortions.ChangeRate}%
+          </div>
         </div>
       </div>
     </DashboardBox>

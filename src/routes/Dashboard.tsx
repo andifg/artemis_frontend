@@ -3,8 +3,7 @@ import { BottomNavigator } from "@/components/bottomNavigator/bottomNavigator";
 import { LogoHeader } from "@/components/logoHeader/LogoHeader";
 import { VeggieStreak } from "@/components/veggiStreak/VeggieStreak";
 import { DailyOverview } from "@/components/dailyOverview/dailyOverview";
-import { AverageMeatPortions } from "@/components/averageMeatPortions/averageMeatPortions";
-import { MeatPortionsChart } from "@/components/meatPortionsChart/meatPortionsChart";
+import { AverageAndChartWrapper } from "@/components/averageAndChartWrapper/averageAndChartWrapper";
 
 function Dashboard() {
   return (
@@ -25,8 +24,7 @@ function Dashboard() {
         >
           <DailyOverview />
           <VeggieStreak />
-          <AverageMeatPortions />
-          <MeatPortionsChart />
+          <AverageAndChartWrapper />
         </div>
         <BottomNavigator />
       </Layout>

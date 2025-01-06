@@ -33,11 +33,19 @@
 }
 
 .average-meat-portions-diff {
-  background-color: #3e721d;
-  color: white;
   border-radius: 4px;
   margin-left: 10px;
   padding: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.average-meat-portions-diff-negative {
+  background-color: #3e721d;
+  color: white;
+}
+
+.average-meat-portions-diff-zero {
+  background-color: var(--background-color);
 }
 
 .average-meat-portions-header-selector {
