@@ -23,7 +23,7 @@ function AverageMeatPortions({
   const timeFrameMap: TimeFrameMap = {
     week: "W",
     month: "M",
-    "6month": "6M",
+    quarter: "Q",
   };
 
   const { averageMeatPortions } = useAverageMeatPortions({ selected });

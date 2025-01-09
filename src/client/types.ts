@@ -19,10 +19,17 @@ export type APIResponse<T> = {
   data: T;
 };
 
-export type Timeframe = "week" | "month" | "6month";
+export type Timeframe = "week" | "month" | "quarter";
 
 export type AverageMeatPortions = {
   Timeframe: Timeframe;
   Value: number;
   ChangeRate: number;
+};
+
+export type AggregatedMeatPortions = {
+  Timeframe: Timeframe;
+  Total: number;
+  TimeframeStart: string;
+  CalendarWeek?: number;
 };

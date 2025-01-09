@@ -10,7 +10,7 @@ function AverageAndChartWrapper() {
   return (
     <>
       <AverageMeatPortions selected={selected} setSelected={setSelected} />
-      <MeatPortionsChart />
+      <MeatPortionsChart selected={selected} />
     </>
   );
 }

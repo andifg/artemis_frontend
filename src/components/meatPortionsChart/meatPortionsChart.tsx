@@ -1,4 +1,6 @@
+import { Timeframe } from "@/client/types";
 import { DashboardBox } from "../dashboardBox/DashboardBox";
+import { useMeatPortionChart } from "./useMeatPortionChart";
 import {
   ChartConfig,
   ChartContainer,
@@ -7,15 +9,6 @@ import {
 } from "../ui/chart";
 import { Bar, BarChart, XAxis } from "recharts";
 
-const chartData = [
-  { month: "January", portions: 186 },
-  { month: "February", portions: 305 },
-  { month: "March", portions: 237 },
-  { month: "April", portions: 73 },
-  { month: "May", portions: 209 },
-  { month: "June", portions: 214 },
-];
-
 const chartConfig = {
   desktop: {
     label: "Meat Portions",
@@ -23,20 +16,29 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-function MeatPortionsChart() {
+type MeatPortionsChartProps = {
+  selected: Timeframe;
+};
+
+function MeatPortionsChart({ selected }: MeatPortionsChartProps) {
+  const { meatPortionMap } = useMeatPortionChart({ selected });
+
   return (
     <DashboardBox>
       <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
-        <BarChart accessibilityLayer data={chartData}>
+        <BarChart
+          accessibilityLayer
+          data={Object.values(meatPortionMap).reverse()}
+        >
           <XAxis
-            dataKey="month"
+            dataKey="label"
             tickLine={false}
             tickMargin={10}
-            axisLine={false}
+            axisLine={true}
             tickFormatter={(value) => value.slice(0, 3)}
           />
           <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar dataKey="portions" fill="var(--color-desktop)" radius={4} />
+          <Bar dataKey="Value" fill="var(--color-desktop)" radius={4} />
         </BarChart>
       </ChartContainer>
     </DashboardBox>

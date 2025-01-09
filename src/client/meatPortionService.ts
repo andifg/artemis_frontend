@@ -1,6 +1,7 @@
 import {
   APIResponse,
   AverageMeatPortions,
+  AggregatedMeatPortions,
   BodyCreateMeatPortion,
   MeatPortion,
   Timeframe,
@@ -84,6 +85,26 @@ class MeatPortionService {
         if (response.status !== 200) {
           throw new Error(
             `Failed to get average meat portions with error: ${response.statusText}`,
+          );
+        }
+        return response.json();
+      })
+      .then((data) => {
+        return data;
+      });
+  }
+
+  public static GetAggregatedMeatPortions(
+    userID: string,
+    timeframe: Timeframe,
+  ): Promise<APIResponse<AggregatedMeatPortions[]>> {
+    const url = `${API.baseURL}/api/v1/user/${userID}/aggregate?timeframe=${timeframe}`;
+
+    return fetch(url)
+      .then((response) => {
+        if (response.status !== 200) {
+          throw new Error(
+            `Failed to get aggregated meat portions with error: ${response.statusText}`,
           );
         }
         return response.json();
