@@ -47,7 +47,12 @@ function MeatPortionsChart({ selected }: MeatPortionsChartProps) {
               tickFormatter={(value) => value.slice(0, 3)}
             />
             <ChartTooltip content={<ChartTooltipContent />} />
-            <Bar dataKey="Value" fill="var(--color-desktop)" radius={4} />
+            <Bar
+              dataKey="Value"
+              name="Total Portions"
+              fill="var(--color-desktop)"
+              radius={4}
+            />
           </BarChart>
         </ChartContainer>
       </div>
