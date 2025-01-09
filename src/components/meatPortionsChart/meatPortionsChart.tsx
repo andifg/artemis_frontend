@@ -1,3 +1,4 @@
+import "./meatPortionsChart.scss";
 import { Timeframe } from "@/client/types";
 import { DashboardBox } from "../dashboardBox/DashboardBox";
 import { useMeatPortionChart } from "./useMeatPortionChart";
@@ -8,6 +9,7 @@ import {
   ChartTooltipContent,
 } from "../ui/chart";
 import { Bar, BarChart, XAxis } from "recharts";
+import { ChartNoAxesColumn } from "lucide-react";
 
 const chartConfig = {
   desktop: {
@@ -25,22 +27,30 @@ function MeatPortionsChart({ selected }: MeatPortionsChartProps) {
 
   return (
     <DashboardBox>
-      <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
-        <BarChart
-          accessibilityLayer
-          data={Object.values(meatPortionMap).reverse()}
-        >
-          <XAxis
-            dataKey="label"
-            tickLine={false}
-            tickMargin={10}
-            axisLine={true}
-            tickFormatter={(value) => value.slice(0, 3)}
-          />
-          <ChartTooltip content={<ChartTooltipContent />} />
-          <Bar dataKey="Value" fill="var(--color-desktop)" radius={4} />
-        </BarChart>
-      </ChartContainer>
+      <div className="meat-portions-chart-wrapper">
+        <div className="meat-portions-chart-title-wrapper">
+          <ChartNoAxesColumn />
+          <div className="meat-portions-chart-title-title">
+            Total Meat Portions
+          </div>
+        </div>
+        <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
+          <BarChart
+            accessibilityLayer
+            data={Object.values(meatPortionMap).reverse()}
+          >
+            <XAxis
+              dataKey="label"
+              tickLine={false}
+              tickMargin={10}
+              axisLine={true}
+              tickFormatter={(value) => value.slice(0, 3)}
+            />
+            <ChartTooltip content={<ChartTooltipContent />} />
+            <Bar dataKey="Value" fill="var(--color-desktop)" radius={4} />
+          </BarChart>
+        </ChartContainer>
+      </div>
     </DashboardBox>
   );
 }
