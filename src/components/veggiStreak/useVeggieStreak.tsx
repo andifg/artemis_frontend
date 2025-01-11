@@ -1,11 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useClient } from "@/hooks/useClient";
 import { MeatPortionService } from "@/client/meatPortionService";
 import { useAuthentication } from "@/hooks/useAuthentication";
+import { AddMeatPortionContext } from "@/contexts/addMeatPortionContext";
+import { MeatPortion } from "@/client/types";
 
 function useVeggieStreak() {
   const { getUser } = useAuthentication();
   const [callClientServiceMethod] = useClient();
+
+  const { registerCallback } = useContext(AddMeatPortionContext);
 
   const [streak, setStreak] = useState<number>(0);
 
@@ -17,6 +21,15 @@ function useVeggieStreak() {
       setStreak(data.data);
     });
   };
+
+  const updateStreak = (_: MeatPortion) => {
+    console.log("Updating streak...");
+    fetchStreak();
+  };
+
+  useEffect(() => {
+    registerCallback(updateStreak);
+  }, []);
 
   useEffect(() => {
     fetchStreak();

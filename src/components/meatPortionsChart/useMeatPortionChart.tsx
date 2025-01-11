@@ -1,9 +1,11 @@
 import { useClient } from "@/hooks/useClient";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { MeatPortionService } from "@/client/meatPortionService";
-import { Timeframe, AggregatedMeatPortions } from "@/client/types";
+import { Timeframe, AggregatedMeatPortions, MeatPortion } from "@/client/types";
 import { useAuthentication } from "@/hooks/useAuthentication";
 import { extractDate } from "@/utils/extractDate";
+import { AddMeatPortionContext } from "@/contexts/addMeatPortionContext";
+
 import {
   mapforWeeks,
   mapforMonths,
@@ -59,6 +61,7 @@ function useMeatPortionChart({ selected }: useMeatPortionChartProps): {
 } {
   const { getUser } = useAuthentication();
   const [callClientServiceMethod] = useClient();
+  const { registerCallback } = useContext(AddMeatPortionContext);
 
   const [meatPortionMap, setMeatPortionMap] = useState<meatPortionMap>(
     getInitialData(selected),
@@ -73,6 +76,14 @@ function useMeatPortionChart({ selected }: useMeatPortionChartProps): {
       setMeatPortionMap(updateMap(initialMap, data.data));
     });
   };
+
+  const updateMeatPortions = (_: MeatPortion) => {
+    fetchAggregatedMeatPortions();
+  };
+
+  useEffect(() => {
+    registerCallback(updateMeatPortions);
+  }, []);
 
   useEffect(() => {
     fetchAggregatedMeatPortions();

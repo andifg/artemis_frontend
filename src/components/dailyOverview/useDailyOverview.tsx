@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { AddMeatPortionContext } from "@/contexts/addMeatPortionContext";
 import { useClient } from "@/hooks/useClient";
 import { MeatPortionService } from "@/client/meatPortionService";
 import { useAuthentication } from "@/hooks/useAuthentication";
@@ -11,7 +12,10 @@ export type DailyOverview = {
 
 function useDailyOverview() {
   const { getUser } = useAuthentication();
+  const [callClientServiceMethod] = useClient();
   const user = getUser();
+
+  const { registerCallback } = useContext(AddMeatPortionContext);
 
   const initializeMeatPortions = () => {
     const meatPortions: DailyOverview = {};
@@ -47,15 +51,20 @@ function useDailyOverview() {
     });
   };
 
-  const [callClientServiceMethod] = useClient();
+  const addSingleMeatPortion = (portion: MeatPortion) => {
+    console.log("Adding single meat portion");
+    updateMeatPortionsByDate([portion]);
+  };
+
+  // changeFunction(()=>addSingleMeatPortion);
 
   useEffect(() => {
     // initializeMeatPortions();
+    registerCallback(addSingleMeatPortion);
     callClientServiceMethod({
       function: MeatPortionService.GetMeatPortions,
       args: [user.id],
     }).then((response) => {
-      console.log(response);
       updateMeatPortionsByDate(response.data);
     });
   }, []);

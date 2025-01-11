@@ -1,5 +1,7 @@
 import { z } from "zod";
 import { v4 as uuidv4 } from "uuid";
+import { useContext } from "react";
+import { AddMeatPortionContext } from "@/contexts/addMeatPortionContext";
 
 import { useClient } from "@/hooks/useClient";
 import { MeatPortionService } from "@/client/meatPortionService";
@@ -25,19 +27,20 @@ function useAddMealForm({
 }: useAddMealFormProps): useAddMealFormReturn {
   const { getUser } = useAuthentication();
 
+  const { callAllCallbacks } = useContext(AddMeatPortionContext);
+
   const user = getUser();
 
   const currentUUID = uuidv4();
 
   const [callClientServiceMethod] = useClient();
 
-  const sendData = (body: BodyCreateMeatPortion) => {
-    callClientServiceMethod({
+  const sendData = async (body: BodyCreateMeatPortion) => {
+    const response = await callClientServiceMethod({
       function: MeatPortionService.CreateMeatPortion,
       args: [body, user.id],
-    }).then((response) => {
-      console.log(response);
     });
+    console.log("Response from post: ", response);
   };
 
   function onSubmit(values: z.infer<typeof formSchema>) {
@@ -48,9 +51,16 @@ function useAddMealForm({
       size: values.portionSize,
       ID: currentUUID,
       date: values.date,
-    });
+    }).then(() => {
+      callAllCallbacks({
+        UserID: user.id,
+        date: values.date.toISOString(),
+        ID: currentUUID,
+        size: values.portionSize,
+      });
 
-    onClose();
+      onClose();
+    });
   }
 
   return { onSubmit };
